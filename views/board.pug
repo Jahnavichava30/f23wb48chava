@@ -2,20 +2,21 @@ extends layout
 
 block content
   h1= title
+  - if(query.rows < 1 && query.rows > 10 && Number.isInteger(query.rows))
+    p Rows: #{query.rows}
+  - if(query.cols < 1 && query.cols > 10 && Number.isInteger(query.rows))
+    p Cols: #{query.cols}
  
-  p Rows: #{query.rows}
-  p Cols: #{query.cols}
-
   - let rows = Number(query.rows)
   - let cols = Number(query.cols)
  
-  - if (!Number.isInteger(rows) || !Number.isInteger(cols))
-    p Rows and Cols must be numbers not decimal.
-    //else if to check for rows out of range
-  - else if (rows < 1 || rows > 10)
+  - if (!Number.isInteger(rows))
+    p Rows must be numbers not decimal.
+  - if(!Number.isInteger(cols))
+    p Cols must be numbers not decimal.
+  - if (rows < 1 || rows > 10)
     p Rows need to be in the range of 1 to 10.
-    //else if to check for cols out of range.
-  - else if (cols < 1 || cols > 10)
+  - if (cols < 1 || cols > 10)
     p Cols need to be in the range of 1 to 10.
   - else
     table#outer
